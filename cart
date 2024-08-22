@@ -1,0 +1,49 @@
+<?php
+    $list = array("apple", "orange", "pineapple");
+    $list2 = ["apple", "orange", "pineapple"];
+    $list3 = array(
+        "fruit" => "orange",
+        "price" => 13
+    );
+      
+    echo "first item in the first list: ".$list[0]."<br>";
+    echo "second item in the second item: ".$list2[1]."<br>";
+    echo "fruit: ".$list3["fruit"]."<br>";
+
+    foreach ($list3 as $key => $value){
+        echo "item: ".$key.": ".$value."<br>";
+    }
+    echo "<br>";
+?>
+
+<?php
+    $cart = array(
+        1 => array(
+          'name' => 'Cannon EOS',
+          'price' => '3600'
+        ),
+        2 => array(
+          'name' => 'Sony DSLR',
+          'price' => '4000'
+        )
+      );
+
+      echo $cart[1]['name']."<br>";
+      echo $cart[2]['price']."<br>";
+
+      $cart[3] = array(
+        "name" => "Olympus",
+        "price" => 3000
+      );
+
+      foreach ($cart as $key => $value){
+        echo "item ".$key.": ".$value["name"]." ".$value["price"]."<br>";
+      }
+
+      echo "<br>";
+      unset($cart[2]);
+
+      foreach ($cart as $key => $value){
+        echo "item ".$key.": ".$value["name"]." ".$value["price"]."<br>";
+      }
+?>
