@@ -1,49 +1,103 @@
-<?php
-    $list = array("apple", "orange", "pineapple");
-    $list2 = ["apple", "orange", "pineapple"];
-    $list3 = array(
-        "fruit" => "orange",
-        "price" => 13
-    );
-      
-    echo "first item in the first list: ".$list[0]."<br>";
-    echo "second item in the second item: ".$list2[1]."<br>";
-    echo "fruit: ".$list3["fruit"]."<br>";
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="shortcut icon" href="img/lifestyleStore.png" />
+        <title>Store</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- latest compiled and minified CSS -->
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" type="text/css">
+        <!-- jquery library -->
+        <script type="text/javascript" src="bootstrap/js/jquery-3.2.1.min.js"></script>
+        <!-- Latest compiled and minified javascript -->
+        <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+        <!-- External CSS -->
+        <link rel="stylesheet" href="css/style.css" type="text/css">
+    </head>
+    <body>
+    <?php
+        session_start();
 
-    foreach ($list3 as $key => $value){
-        echo "item: ".$key.": ".$value."<br>";
-    }
-    echo "<br>";
-?>
+        if (!isset($_SESSION["email"])) {
+            header("location: login.php");
+            die();
+        }
 
-<?php
-    $cart = array(
-        1 => array(
-          'name' => 'Cannon EOS',
-          'price' => '3600'
-        ),
-        2 => array(
-          'name' => 'Sony DSLR',
-          'price' => '4000'
-        )
-      );
+        $cart = array(
+            1 => array(
+              'name' => 'Cannon EOS',
+              'price' => '3600'
+            ),
+            2 => array(
+              'name' => 'Sony DSLR',
+              'price' => '4000'
+            )
+          );
+          
+    ?>
 
-      echo $cart[1]['name']."<br>";
-      echo $cart[2]['price']."<br>";
+        <div>
 
-      $cart[3] = array(
-        "name" => "Olympus",
-        "price" => 3000
-      );
+            <!-- header -->
+            <nav class="navbar navbar-inverse navabar-fixed-top">
+               <div class="container">
+                   <div class="navbar-header">
+                       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                           <span class="icon-bar"></span>
+                           <span class="icon-bar"></span>
+                           <span class="icon-bar"></span>
+                       </button>
+                       <a href="index.php" class="navbar-brand">Store</a>
+                   </div>
+                   
+                   <div class="collapse navbar-collapse" id="myNavbar">
+                       <ul class="nav navbar-nav navbar-right">
+                            <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+                            <li><a href="index.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                       </ul>
+                   </div>
+               </div>
+            </nav>
 
-      foreach ($cart as $key => $value){
-        echo "item ".$key.": ".$value["name"]." ".$value["price"]."<br>";
-      }
-
-      echo "<br>";
-      unset($cart[2]);
-
-      foreach ($cart as $key => $value){
-        echo "item ".$key.": ".$value["name"]." ".$value["price"]."<br>";
-      }
-?>
+            <br>
+            <div class="container">
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr>
+                            <th>Item Number</th><th>Item Name</th><th>Price</th><th></th>
+                        </tr>
+                        <?php 
+                            $count = 0;
+                            foreach ($cart as $key => $value){
+                                $count += 1;
+                        ?>
+                        <tr>
+                            <th><?php echo "$count";?></th><th><?php echo "$value[name]"?></th><th><?php echo "$value[price]"?></th>
+                            <th><a href='#'>Remove</a></th>
+                            <?php
+                                }
+                            ?>
+                        </tr>
+                        <tr>
+                            <th></th><th>Total</th><th>$
+                                <?php
+                                    $total = 0;
+                                    foreach ($cart as $key => $value){
+                                        $total += $value['price'];
+                                    }
+                                    echo "$total";
+                                ?>
+                            </th><th><a href="success.html" class="btn btn-primary">Confirm Order</a></th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br><br><br><br><br><br><br><br><br><br>
+            <footer class="footer">
+               <div class="container text-center">
+                   <p>Copyright &copy Store. All Rights Reserved.</p>
+               </div>
+           </footer>
+        </div>
+    </body>
+</html>
